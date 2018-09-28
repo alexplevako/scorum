@@ -2,15 +2,15 @@
 pipeline {
     agent {
         docker {
-            image 'node:7-alpine'
+            image 'phusion/baseimage:0.9.19'
             label "jenkins-agent-azure"
         }
     }
     stages {
         stage('Build') {
             steps {
-                sh 'apt update'
-                sh 'apt install git'
+                sh 'ps -ef'
+                sh 'ls -la'
             }
         }
     }
