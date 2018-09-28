@@ -9,8 +9,8 @@ pipeline {
     stages {
         stage('Build') {
             steps {
-                sh 'ps -ef'
-                sh 'ls -la'
+                sh 'cmake .'
+                sh 'make -j$(nproc) scorumd'
             }
         }
     }
