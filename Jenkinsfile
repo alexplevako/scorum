@@ -2,7 +2,7 @@
 pipeline {
     agent {
         docker {
-            image 'phusion/baseimage:0.9.19'
+            image 'alexplevako/build_image:0.0.1'
             label "jenkins-agent-azure"
         }
     }
