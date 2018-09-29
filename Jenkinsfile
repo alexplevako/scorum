@@ -2,6 +2,11 @@
 pipeline {
     agent none
     stages {
+        stage("prepare") {
+            steps {
+                sh 'git submodule update --init --recursive'
+            }
+        }
         stage("Build") {
             parallel {
                 stage('Debug') {
