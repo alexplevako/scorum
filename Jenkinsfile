@@ -7,22 +7,39 @@ pipeline {
         }
     }
     stages {
-        stage('Build') {
-            steps {
-                sh 'mkdir build'
+        parallel {
+            stage('Build Debug') {
+                steps {
+                    sh 'mkdir build-debug'
+                    sh "cd build-debug && ../build.py run_cmake_debug"
+                    sh 'cd build-debug && make -j$(nproc) all'
+                }
+            }
 
-                sh "cd build && ../build.py run_cmake_debug"
+            stage('Build default') {
+                steps {
+                    sh 'mkdir build-default'
+                    sh "cd build-default && ../build.py run_cmake_release_default"
+                    sh 'cd build-default && make -j$(nproc) all'
+                }
+            }
 
-                sh 'cd build && make -j$(nproc) all'
+            stage('Build full') {
+                steps {
+                    sh 'mkdir build-full'
+                    sh "cd build-full && ../build.py run_cmake_release_full"
+                    sh 'cd build-full && make -j$(nproc) all'
+                }
             }
         }
-        stage('Test') {
-            steps {
-                sh './build/libraries/chainbase/test/chainbase_test'
-                sh './build/tests/utests/utests'
-                sh './build/tests/chain_tests/chain_tests'
-                sh './build/tests/wallet_tests/wallet_tests'
-            }
-        }
+
+        // stage('Test') {
+        //     steps {
+        //         sh './build/libraries/chainbase/test/chainbase_test'
+        //         sh './build/tests/utests/utests'
+        //         sh './build/tests/chain_tests/chain_tests'
+        //         sh './build/tests/wallet_tests/wallet_tests'
+        //     }
+        // }
     }
 }

@@ -33,6 +33,24 @@ def run_cmake_debug():
                 "-DSCORUM_SKIP_BY_TX_ID=ON",
                 "-DENABLE_COVERAGE_TESTING=ON"])
 
+
+def run_cmake_release_default():
+    return call(["cmake", "..",
+                 "-DCMAKE_BUILD_TYPE=Release",
+                 "-DSCORUM_LIVE_TESTNET=OFF",
+                 "-DSCORUM_LOW_MEMORY_NODE=ON",
+                 "-DSCORUM_CLEAR_VOTES=ON",
+                 "-DSCORUM_SKIP_BY_TX_ID=ON"])
+
+
+def run_cmake_release_full():
+        return call(["cmake", "..",
+                     "-DCMAKE_BUILD_TYPE=Release",
+                     "-DSCORUM_LIVE_TESTNET=OFF",
+                     "-DSCORUM_LOW_MEMORY_NODE=OFF",
+                     "-DSCORUM_CLEAR_VOTES=OFF",
+                     "-DSCORUM_SKIP_BY_TX_ID=OFF"])
+
 def main():
     parser = argparse.ArgumentParser(description='')
     parser.add_argument('action', type=str, help='')
@@ -45,8 +63,10 @@ def main():
         build(sys.argv[2:])
     elif args.action == "run_cmake_debug":
         run_cmake_debug()
-
-
+    elif args.action == "run_cmake_release_default":
+        run_cmake_debug()
+    elif args.action == "run_cmake_release_full":
+        run_cmake_release_full()
 
 
 if __name__ == "__main__":
