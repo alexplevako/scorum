@@ -3,9 +3,8 @@ pipeline {
     agent none
     stages {
         stage("prepare") {
-            steps {
-                sh 'git submodule update --init --recursive'
-            }
+            agent { label "jenkins-agent-azure" }
+            steps { sh 'git submodule update --init --recursive' }
         }
         stage("Build") {
             parallel {
