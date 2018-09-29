@@ -9,7 +9,9 @@ pipeline {
     stages {
         stage('Build') {
             steps {
+                sh 'pwd'
                 sh 'mkdir build && cd build'
+                sh 'pwd'
                 sh 'python3 build.py run_cmake_debug'
                 sh 'make -j$(nproc) all'
             }
