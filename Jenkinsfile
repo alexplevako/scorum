@@ -9,10 +9,15 @@ pipeline {
     stages {
         stage('Build') {
             steps {
-                sh 'pwd'
                 sh 'mkdir build && cd build'
-                sh 'pwd'
-                sh './build.py run_cmake_debug'
+
+                sh 'cmake .. -DCMAKE_BUILD_TYPE=Debug
+                             -DSCORUM_LIVE_TESTNET=OFF
+                             -DSCORUM_LOW_MEMORY_NODE=OFF
+                             -DSCORUM_CLEAR_VOTES=ON
+                             -DSCORUM_SKIP_BY_TX_ID=ON
+                             -DENABLE_COVERAGE_TESTING=ON'
+
                 sh 'make -j$(nproc) all'
             }
         }
