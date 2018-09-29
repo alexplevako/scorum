@@ -2,6 +2,8 @@
 import logging
 import argparse
 import sys
+import subprocess
+import os
 
 # orex build debug all -d cmake
 # orex build release scorumd -d cmake
@@ -18,6 +20,18 @@ def build(argv):
     print("building")
     print(argv)
 
+def call(args):
+    print(" ".join(str(i) for i in args))
+    return subprocess.call(args)
+
+def run_cmake_debug():
+    return call(["cmake", "..",
+                "-DCMAKE_BUILD_TYPE=Debug",
+                "-DSCORUM_LIVE_TESTNET={}".format(os.environ["LIVE_TESTNET"]),
+                "-DSCORUM_LOW_MEMORY_NODE=OFF",
+                "-DSCORUM_CLEAR_VOTES=ON",
+                "-DSCORUM_SKIP_BY_TX_ID=ON",
+                "-DENABLE_COVERAGE_TESTING=ON"])
 
 def main():
     parser = argparse.ArgumentParser(description='')
@@ -29,8 +43,8 @@ def main():
 
     if args.action == "build":
         build(sys.argv[2:])
-    elif args.action == "valgrind":
-        pass
+    elif args.action == "run_cmake_debug":
+        run_cmake_debug()
 
 
 

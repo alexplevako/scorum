@@ -9,8 +9,17 @@ pipeline {
     stages {
         stage('Build') {
             steps {
-                sh 'cmake .'
-                sh 'make -j$(nproc) scorumd'
+                sh 'mkdir build && cd build'
+                sh 'python3 build.py run_cmake_debug'
+                sh 'make -j$(nproc) all'
+            }
+        }
+        stage('Test') {
+            steps {
+                sh './build/libraries/chainbase/test/chainbase_test'
+                sh './build/tests/utests/utests'
+                sh './build/tests/chain_tests/chain_tests'
+                sh './build/tests/wallet_tests/wallet_tests'
             }
         }
     }
