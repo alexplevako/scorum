@@ -11,7 +11,7 @@ pipeline {
             steps {
                 sh 'mkdir build'
 
-                sh "cd build && ../build.py"
+                sh "cd build && ../build.py run_cmake_debug"
 
                 sh 'cd build && make -j$(nproc) all'
             }
