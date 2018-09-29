@@ -9,10 +9,11 @@ pipeline {
     stages {
         stage('Build') {
             steps {
-                sh 'mkdir build && cd build'
+                sh 'mkdir build'
 
                 sh """
-                    cmake .. -DCMAKE_BUILD_TYPE=Debug
+                    cd build &&
+                    cmake    -DCMAKE_BUILD_TYPE=Debug
                              -DSCORUM_LIVE_TESTNET=OFF
                              -DSCORUM_LOW_MEMORY_NODE=OFF
                              -DSCORUM_CLEAR_VOTES=ON
@@ -20,7 +21,7 @@ pipeline {
                              -DENABLE_COVERAGE_TESTING=ON
                    """
 
-                sh 'make -j$(nproc) all'
+                sh 'cd build && make -j$(nproc) all'
             }
         }
         stage('Test') {
