@@ -64,7 +64,7 @@ def main():
     elif args.action == "run_cmake_debug":
         run_cmake_debug()
     elif args.action == "run_cmake_release_default":
-        run_cmake_debug()
+        run_cmake_release_default()
     elif args.action == "run_cmake_release_full":
         run_cmake_release_full()
 
