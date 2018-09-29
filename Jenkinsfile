@@ -1,15 +1,16 @@
 #!groovy
 pipeline {
-    agent {
-        docker {
-            image 'alexplevako/build_image:0.0.1'
-            label "jenkins-agent-azure"
-        }
-    }
+    agent none
     stages {
         stage("Build") {
             parallel {
                 stage('Debug') {
+                    agent {
+                        docker {
+                            image 'alexplevako/build_image:0.0.1'
+                            label "jenkins-agent-azure"
+                        }
+                    }
                     steps {
                         sh 'mkdir build-debug'
                         sh "cd build-debug && ../build.py run_cmake_debug"
@@ -18,6 +19,12 @@ pipeline {
                 }
 
                 stage('Release default') {
+                    agent {
+                        docker {
+                            image 'alexplevako/build_image:0.0.1'
+                            label "jenkins-agent-azure"
+                        }
+                    }
                     steps {
                         sh 'mkdir build-default'
                         sh "cd build-default && ../build.py run_cmake_release_default"
@@ -26,6 +33,12 @@ pipeline {
                 }
 
                 stage('Release full') {
+                    agent {
+                        docker {
+                            image 'alexplevako/build_image:0.0.1'
+                            label "jenkins-agent-azure"
+                        }
+                    }
                     steps {
                         sh 'mkdir build-full'
                         sh "cd build-full && ../build.py run_cmake_release_full"
