@@ -27,7 +27,7 @@ def call(args):
 def run_cmake_debug():
     return call(["cmake", "..",
                 "-DCMAKE_BUILD_TYPE=Debug",
-                "-DSCORUM_LIVE_TESTNET={}".format(os.environ["LIVE_TESTNET"]),
+                "-DSCORUM_LIVE_TESTNET=OFF",
                 "-DSCORUM_LOW_MEMORY_NODE=OFF",
                 "-DSCORUM_CLEAR_VOTES=ON",
                 "-DSCORUM_SKIP_BY_TX_ID=ON",
