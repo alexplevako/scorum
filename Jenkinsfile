@@ -19,6 +19,7 @@ pipeline {
                              -DSCORUM_CLEAR_VOTES=ON
                              -DSCORUM_SKIP_BY_TX_ID=ON
                              -DENABLE_COVERAGE_TESTING=ON
+                             ..
                    """
 
                 sh 'cd build && make -j$(nproc) all'
